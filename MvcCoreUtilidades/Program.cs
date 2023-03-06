@@ -4,6 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<HelperPathProvider>();
+builder.Services.AddTransient<HelperUploadFiles>();
+builder.Services.AddSingleton<HelperMail>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

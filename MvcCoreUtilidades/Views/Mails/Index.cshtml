@@ -1,0 +1,21 @@
+﻿<h4>
+    Send Mail
+</h4>
+
+<form method="post" enctype="multipart/form-data">
+    <label>Para: </label>
+    <input type="text" name="para" class="form-control" />
+    <label>Asunto: </label>
+    <input type="text" name="asunto" class="form-control" />
+    <label>Mensaje: </label>
+    <textarea name="mensaje" class="form-control"></textarea>
+    <label>Seleccione un fichero: </label>
+    <input type="file" name="files" class="form-control" multiple />
+    <button class="btn btn-success">
+        Enviar Mail
+    </button>
+</form>
+
+<h4>
+    @ViewData["MENSAJE"]
+</h4>
