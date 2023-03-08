@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using MvcCoreUtilidades.Context;
 using MvcCoreUtilidades.Helpers;
+using MvcCoreUtilidades.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+string connectionString = builder.Configuration.GetConnectionString("SqlHospital");
+builder.Services.AddTransient<RepositoryUsuarios>();
+builder.Services.AddDbContext<UsuariosContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddSingleton<HelperPathProvider>();
 builder.Services.AddTransient<HelperUploadFiles>();
 builder.Services.AddSingleton<HelperMail>();

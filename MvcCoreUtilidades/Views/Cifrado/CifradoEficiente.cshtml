@@ -2,8 +2,6 @@
     Cifrado basic
 </h4>
 
-<a asp-controller="Cifrado" asp-action="CifradoEficiente" class="btn btn-dark">CifradoEficiente</a>
-
 <form method="post">
     <label>Contenido a cifrar</label>
     <input type="text" name="contenido" class="form-control" />
@@ -13,6 +11,4 @@
     <button class="btn btn-danger" name="accion" value="comparar">Comparar contenido</button>
 </form>
 
-<h4>
-    @ViewData["MENSAJE"]
-</h4>
+@Html.Raw(ViewData["MENSAJE"])
