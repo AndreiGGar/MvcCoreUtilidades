@@ -1,6 +1,6 @@
 ﻿namespace MvcCoreUtilidades.Helpers
 {
-    public enum Folders { Images = 0}
+    public enum AllFolders { Images = 0}
     public class HelperPathImages
     {
         private IWebHostEnvironment hostEnvironment;
@@ -10,10 +10,10 @@
             this.hostEnvironment = hostEnvironment;
         }
 
-        public string MapPath(string fileName, Folders folder)
+        public string MapPath(string fileName, AllFolders folder)
         {
             string carpeta = "";
-            if (folder == Folders.Images)
+            if (folder == AllFolders.Images)
             {
                 carpeta = "users/images";
             }

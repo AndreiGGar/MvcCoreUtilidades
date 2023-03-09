@@ -1,0 +1,21 @@
+﻿<h4>
+    Custom Memory
+</h4>
+
+<a asp-controller="Caching" asp-action="CustomMemory" asp-route-tiempo="15">
+    Actualizar la página cada 15 segundos
+</a>
+
+<hr/>
+
+<a asp-controller="Caching" asp-action="CustomMemory" asp-route-tiempo="30">
+    Actualizar la página cada 30 segundos
+</a>
+
+<h4>
+    @ViewData["MENSAJE"]
+</h4>
+
+<h4>
+    @ViewData["FECHA"]
+</h4>

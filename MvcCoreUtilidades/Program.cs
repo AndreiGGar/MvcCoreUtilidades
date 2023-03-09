@@ -7,11 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 string connectionString = builder.Configuration.GetConnectionString("SqlHospital");
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddMemoryCache();
+builder.Services.AddResponseCaching();
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 builder.Services.AddTransient<RepositoryUsuarios>();
+builder.Services.AddTransient<RepositoryEmpleados>();
 builder.Services.AddDbContext<UsuariosContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddSingleton<HelperPathProvider>();
-builder.Services.AddTransient<HelperUploadFiles>();
 builder.Services.AddSingleton<HelperMail>();
+builder.Services.AddTransient<HelperUploadFiles>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -30,6 +35,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseResponseCaching();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

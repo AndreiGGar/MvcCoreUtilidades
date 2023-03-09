@@ -1,0 +1,13 @@
+﻿@model List<Empleado>
+
+<h4>Suma Salarios Session</h4>
+
+<a asp-asp-controller="Empleados" asp-action="SessionSalarios">
+    Volver a Empleados Salarios
+</a>
+
+@if (Context.Session.GetString("SUMASALARIAL") == null) {
+    <h4>No hay datos salariales</h4>
+} else {
+    <h4>Suma salarial: @Context.Session.GetString("SUMASALARIAL")</h4>
+}

@@ -7,5 +7,6 @@ namespace MvcCoreUtilidades.Context
     {
         public UsuariosContext(DbContextOptions<UsuariosContext> options) : base(options) { }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Empleado> Empleados { get; set; }
     }
 }
