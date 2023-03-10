@@ -1,21 +1,30 @@
 ﻿namespace MvcCoreUtilidades.Helpers
 {
-    public enum AllFolders { Images = 0}
-    public class HelperPathImages
+    public enum Folders { Images = 0, Uploads = 1, Facturas = 2, Temporal = 3}
+    public class HelperPathProvider
     {
         private IWebHostEnvironment hostEnvironment;
 
-        public HelperPathImages(IWebHostEnvironment hostEnvironment)
+        public HelperPathProvider(IWebHostEnvironment hostEnvironment)
         {
             this.hostEnvironment = hostEnvironment;
         }
 
-        public string MapPath(string fileName, AllFolders folder)
+        public string MapPath(string fileName, Folders folder)
         {
             string carpeta = "";
-            if (folder == AllFolders.Images)
+            if (folder == Folders.Images)
             {
-                carpeta = "users/images";
+                carpeta = "images";
+            } else if (folder == Folders.Uploads)
+            {
+                carpeta = "uploads";
+            } else if (folder == Folders.Facturas)
+            {
+                carpeta = "facturas";
+            } else if (folder == Folders.Temporal)
+            {
+                carpeta = "temp";
             }
             string rootPath = this.hostEnvironment.WebRootPath;
             string path = Path.Combine(rootPath, carpeta, fileName);

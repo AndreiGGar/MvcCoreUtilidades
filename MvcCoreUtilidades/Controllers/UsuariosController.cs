@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MvcCoreUtilidades.Helpers;
 using MvcCoreUtilidades.Models;
 using MvcCoreUtilidades.Repositories;
 
@@ -6,11 +7,13 @@ namespace MvcCoreUtilidades.Controllers
 {
     public class UsuariosController : Controller
     {
+        private HelperPathImages helperPathImages;
         private RepositoryUsuarios repo;
 
-        public UsuariosController(RepositoryUsuarios repo)
+        public UsuariosController(RepositoryUsuarios repo, HelperPathImages helperPathImages)
         {
             this.repo = repo;
+            this.helperPathImages = helperPathImages;
         }
 
         public IActionResult Register()
@@ -19,9 +22,15 @@ namespace MvcCoreUtilidades.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register (string nombre, string email, string password, string imagen)
+        public async Task<IActionResult> Register (string nombre, string email, string password, IFormFile imagen)
         {
-            await this.repo.RegisterUser(nombre, email, password, imagen);
+            string protocol = HttpContext.Request.IsHttps ? "https://" : "http://";
+            string domainName = HttpContext.Request.Host.Value.ToString();
+            string url = protocol + domainName;
+            string max = this.repo.GetMaxIdUsuario().ToString();
+            string path = await this.helperPathImages.UploadFileAsync(imagen, max + "-" + imagen.FileName, url, AllFolders.Images);
+            path = path.Replace("\\", "/");
+            await this.repo.RegisterUser(nombre, email, password, path);
             ViewData["MENSAJE"] = "Usuario registrado correctamente";
             return View();
         }

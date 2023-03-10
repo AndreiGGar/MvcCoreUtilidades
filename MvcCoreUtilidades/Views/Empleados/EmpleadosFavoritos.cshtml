@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MvcCoreUtilidades.Models.Empleado>
+
+@{
+    ViewData["Title"] = "EmpleadosFavoritos";
+}
+
+@{
+
+    List<Empleado> favoritos = memoryCache.Get<List<Empleado>>("FAVORITOS");
+
+}
+
+<h1>EmpleadosFavoritos</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@if (favoritos != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <img src="https://www.shutterstock.com/image-vector/two-female-hands-make-heart-260nw-1584503680.jpg" style="width: 100px; height: 100px" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Oficio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salario)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in favoritos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdEmpleado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Oficio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salario)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

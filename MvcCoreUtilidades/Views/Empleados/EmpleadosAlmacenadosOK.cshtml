@@ -6,6 +6,13 @@
     Volver a Empleados Almacenados
 </a>
 
+@if (Context.Session.GetObject<List<int>>("IDSEMPLEADOS") == null)
+{
+    <h4>
+        No existen empleados en Session
+    </h4>
+}
+
 <h4 style="color:red">
     @ViewData["MENSAJE"]
 </h4>
@@ -27,12 +34,15 @@
                     <td>@emp.Apellido</td>
                     <td>@emp.Oficio</td>
                     <td>@emp.Salario</td>
+                    <td>
+                        <a asp-controller="Empleados" asp-action="EmpleadosAlmacenadosOK" asp-route-ideliminar="@emp.IdEmpleado" class="btn btn-danger">Quitar de session</a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 }
-else
+@*else
 {
     <ul class="list-group">
         @foreach (Empleado emp in Model)
@@ -42,4 +52,4 @@ else
             </li>
         }
     </ul>
-}
+}*@

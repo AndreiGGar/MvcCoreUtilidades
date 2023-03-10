@@ -13,7 +13,7 @@ namespace MvcCoreUtilidades.Repositories
             this.context = context;
         }
 
-        private int GetMaxIdUsuario()
+        public int GetMaxIdUsuario()
         {
             if (this.context.Usuarios.Count() == 0)
             {

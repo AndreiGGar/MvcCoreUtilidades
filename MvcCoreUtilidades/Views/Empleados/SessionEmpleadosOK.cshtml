@@ -1,23 +1,61 @@
 ﻿@model List<Empleado>
 
+@{
+    List<int> idsEmpleados = Context.Session.GetObject<List<int>>("IDSEMPLEADOS");
+    List<Empleado> favoritos = memoryCache.Get<List<Empleado>>("FAVORITOS");
+}
+
 <h4>Empleados Session OK</h4>
 
 <a asp-asp-controller="Empleados" asp-action="EmpleadosAlmacenadosOK">
     Empleados Almacenados OK
+</a>
+<a asp-asp-controller="Empleados" asp-action="EmpleadosFavoritos">
+    Empleados Favoritos
 </a>
 
 <h4>
     @ViewData["MENSAJE"]
 </h4>
 
+@if (favoritos != null)
+{
+    <h4>
+        Empleados favoritos Cache: @favoritos.Count();
+    </h4>
+}
+
 <ul class="list-group">
-    @foreach(Empleado emp in Model)
+    @foreach (Empleado emp in Model)
     {
-        <li class="list-group-item">
+        <li class="list-group-item list-group-item-warning">
+
             @emp.Apellido
-            <a asp-asp-controller="Empleados" asp-action="SessionEmpleados" asp-route-idempleado="@emp.IdEmpleado">
-                Almacenar empleado OK
+
+            <a asp-controller="Empleados" asp-action="SessionEmpleadosOK" asp-route-idfavorito="@emp.IdEmpleado">
+                Almacenar Favorito Ok
             </a>
+
+            @if (idsEmpleados == null)
+            {
+                <a asp-controller="Empleados" asp-action="SessionEmpleadosOK" asp-route-idempleado="@emp.IdEmpleado">
+                    Almacenar Empleado OK
+                </a>
+            }
+            else
+            {
+                if (idsEmpleados.Contains(emp.IdEmpleado))
+                {
+                    <img src="~/images/check.png" style="width:40px; height: 40px" />
+                }
+                else
+                {
+
+                    <a asp-controller="Empleados" asp-action="SessionEmpleadosOK" asp-route-idempleado="@emp.IdEmpleado">
+                        Almacenar Empleado OK
+                    </a>
+                }
+            }
         </li>
     }
 </ul>

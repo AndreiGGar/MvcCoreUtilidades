@@ -1,34 +1,38 @@
-﻿namespace MvcCoreUtilidades.Helpers
+﻿using System.Text.RegularExpressions;
+
+namespace MvcCoreUtilidades.Helpers
 {
-    public enum Folders { Images = 0, Uploads = 1, Facturas = 2, Temporal = 3}
-    public class HelperPathProvider
+    public enum AllFolders { Images = 0}
+    public class HelperPathImages
     {
+        private readonly HelperPathProvider helperPathImages;
         private IWebHostEnvironment hostEnvironment;
 
-        public HelperPathProvider(IWebHostEnvironment hostEnvironment)
+        public HelperPathImages(HelperPathProvider helperPathImages, IWebHostEnvironment hostEnvironment)
         {
+            this.helperPathImages = helperPathImages;
             this.hostEnvironment = hostEnvironment;
         }
 
-        public string MapPath(string fileName, Folders folder)
+        public async Task<string> UploadFileAsync(IFormFile file, string fileName, string host, AllFolders folder)
         {
+            /*string type = file.FileName.Split('.')[1];*/
+            /*string finalFileName = fileName + "." + type;*/
+
             string carpeta = "";
-            if (folder == Folders.Images)
+            if (folder == AllFolders.Images)
             {
-                carpeta = "images";
-            } else if (folder == Folders.Uploads)
-            {
-                carpeta = "uploads";
-            } else if (folder == Folders.Facturas)
-            {
-                carpeta = "facturas";
-            } else if (folder == Folders.Temporal)
-            {
-                carpeta = "temp";
+                carpeta = "users/images";
             }
+
             string rootPath = this.hostEnvironment.WebRootPath;
             string path = Path.Combine(rootPath, carpeta, fileName);
-            return path;
+
+            using (Stream stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+                return Path.Combine(host, carpeta, fileName);
+            }
         }
     }
 }
