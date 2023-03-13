@@ -1,0 +1,30 @@
+﻿<h4>Vistas parciales Ajax</h4>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#botoncargarcoches").click(function() {
+                $("#contenido").load("/Coches/_CochesPartial");
+            })
+            $("#botonbuscarcoche").click(function () {
+                var idcoche = $("#cajaidcoche").val();
+                var request = "/Coches/_DetailsCoche?idcoche=" + idcoche;
+                $("#contenidodetails").load(request);
+            })
+        })
+    </script>
+}
+
+<button id="botoncargarcoches" class="btn btn-danger mb-4">
+    Cargar coches Ajax
+</button>
+
+<label>Introduzca ID: </label>
+<input type="text" id="cajaidcoche" class="form-control mb-4" />
+<button id="botonbuscarcoche" class="btn btn-info mb-4">
+    Buscar coche
+</button>
+
+<div id="contenido" style="background-color: lightcoral"></div>
+
+<div id="contenidodetails" style="background-color: lightyellow"></div>

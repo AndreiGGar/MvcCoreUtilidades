@@ -1,0 +1,25 @@
+﻿@model List<Coche>
+
+<h4>Vista Coche</h4>
+
+<table class="table table-active table-hover w-100 table-bordered text-center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Coche car in Model)
+        {
+            <tr>
+                <td>@car.IdCoche</td>
+                <td>@car.Marca</td>
+                <td>@car.Modelo</td>
+                <td><img src="@car.Imagen" style="width: 300px; height: 200px;" /></td>
+            </tr>
+        }
+    </tbody>
+</table>

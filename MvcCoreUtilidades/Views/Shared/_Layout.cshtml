@@ -52,6 +52,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="SessionEmpleadosOK">Session empleados ok</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Coches" asp-action="Index">Coches</a>
+                        </li>
+                        <partial name="_MenuUsuario" />
+                        @await Component.InvokeAsync("MenuCoches")
                     </ul>
                 </div>
             </div>

@@ -13,6 +13,7 @@ builder.Services.AddResponseCaching();
 builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 builder.Services.AddTransient<RepositoryUsuarios>();
 builder.Services.AddTransient<RepositoryEmpleados>();
+builder.Services.AddTransient<RepositoryCoches>();
 builder.Services.AddSingleton<HelperPathProvider>();
 builder.Services.AddSingleton<HelperPathImages>();
 builder.Services.AddSingleton<HelperMail>();
